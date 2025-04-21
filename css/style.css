@@ -1,0 +1,220 @@
+
+html{
+  font-size: 16px;
+}
+.header {
+  .nav-link,
+  a {
+    color: #001b2e;
+    font-weight: 400;
+  }
+  .nav-link:hover,
+  a:hover {
+    color: #9c7956;
+  }
+  .logo-img {
+    max-width: 120px;
+    height: 60px;
+  }
+  .search-box {
+    max-width: 300px;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  }
+  #search-input {
+    border: none;
+    padding: 10px 15px;
+    border-radius: 10px 0 0 10px;
+  }
+  #search-input::placeholder {
+    font-size: 12px;
+    color: #ddd;
+  }
+
+  .input-group-text {
+    background-color: #fff;
+    border: none;
+    border-left: 1px solid #ddd;
+    border-radius: 0 10px 10px 0;
+    padding: 10px 15px;
+  }
+
+  .input-group-text i {
+    font-size: 15px;
+    color: #9c7956;
+  }
+  #search-input:focus {
+    box-shadow: none;
+    outline: none;
+  }
+}
+.header {
+  animation: slideFadeIn 1s ease-in-out;
+}
+@keyframes slideFadeIn {
+  from {
+    transform: translateY(-50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+#hero {
+  .slides {
+    max-width: 1200px;
+    width: 100%;
+    margin: auto;
+
+    .slide {
+      display: none;
+      flex-wrap: nowrap !important; 
+      flex-direction: row !important;
+      opacity: 0;
+      transform: scale(0.95);
+      transition: all 0.6s ease-in-out;
+
+      img {
+        max-height: 300px;
+        width: 100%;
+        object-fit: cover;
+      }
+    }
+
+    .slide.active {
+      display: flex !important;
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  a.btn {
+    background-color: #664e36;
+    color: #fff;
+    font-size: 1.1rem;
+  }
+}
+
+
+
+
+
+.main .scroll-div {
+    position: relative;
+  }
+  
+  .main .scroll-btn {
+    position: absolute;
+    top: 50%;
+    
+    transform: translateY(-50%);
+    background-color: #fff;
+ 
+    cursor: pointer;
+    padding: 0.5rem 0.7rem;
+    border: none;
+
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    z-index: 10;
+    display: none;
+  
+  }
+  
+  .main .scroll-btn.left {
+    left: 0;
+  }
+  
+  .main .scroll-btn.right {
+    right: 0;
+  }
+  
+  .main .categories-container {
+    min-width: 100%;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none; 
+        -ms-overflow-style: none;  
+    overflow-x: auto;
+    gap: 0.2rem;
+    padding: 1rem 0;
+    scroll-behavior: smooth;
+  }
+  
+.main .categories-container::-webkit-scrollbar {
+  display: none;
+}
+
+  .main .category {
+    flex: 0 0 auto;
+    text-align: center;
+  }
+  
+  .main .category-img {
+    width: 5rem;
+    height: 5rem;
+    object-fit: cover;
+  }
+
+    
+
+.seeMore{
+ a{
+  color: #9c7956;
+  font-size: 1.2rem;
+  font-weight: 600;
+ }
+}
+.seeMore:hover{
+ a{
+  color: #001b2e;
+ }
+}.products .btn i {
+
+  font-size: 1rem; 
+}
+footer{
+  background-color: #210f04;
+}
+.cartBtn{
+  border:.2rem #9c7956;
+}
+.cartBtn:hover{
+  background-color: #9c7956;
+}
+
+  @media (max-width: 768px) {
+    html{
+      font-size: 12px;
+    }
+    #hero .slides {
+      min-height: auto;
+      padding: 1rem;
+    }
+  
+    #hero .slides .slide img {
+      max-height: 250px;
+    }
+  }
+
+
+@media (max-width: 576px) {
+    html{
+        font-size: 10px;
+        overflow-x: hidden;
+    }
+    #hero .slides {
+      min-height: auto;
+      padding: 1rem;
+    }
+  
+    #hero .slides .slide img {
+      max-width: 150px;
+      max-height: 150px;
+    }
+  .logo-img {
+
+    max-width: 80px;
+  }
+}
