@@ -52,8 +52,12 @@ registerBtn.addEventListener("click", async (event) => {
     const data = await response.json();
 
     if (response.ok) {
-      errorMsg.innerHTML = `<p class="text-success">Registration successful! 🎉</p>`;
-      document.getElementById("register-form").reset();
+        const userData = {
+            token: data.token,
+          };
+    
+          localStorage.setItem("user", JSON.stringify(userData));
+      window.location.replace("index.html");
     } else {
       errorMsg.innerHTML = `<p class="text-danger">${data.message || "Registration failed."}</p>`;
     }
