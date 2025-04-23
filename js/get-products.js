@@ -1,13 +1,37 @@
 import { addToCart, removeFromCart, updateQuantity } from "./add_to_cart.js";
-import { productData } from "./product.js";
 let ProductGrid = document.getElementById("Product-grid");
 const user = JSON.parse(localStorage.getItem("user"));
 
-export async function getProducts(maxValue, apiUrl) {
+export async function getProducts(
+  maxValue,
+  categoryId,
+  sortOrder,
+  searchTerm = ""
+) {
   try {
-    let response = await fetch(`${apiUrl}/api/v1/products`);
+    let response = await fetch(
+      `https://ecommerce.routemisr.com/api/v1/products`
+    );
     let data = await response.json();
-    let limitedProducts = maxValue ? data.data.slice(0, maxValue) : data.data;
+    let filteredProducts = categoryId
+      ? data.data.filter((product) => product.category._id === categoryId)
+      : data.data;
+      if (searchTerm) {
+        const lowerSearch = searchTerm.toLowerCase();
+        filteredProducts = filteredProducts.filter((product) =>
+          product.title.toLowerCase().includes(lowerSearch) ||
+          product.description.toLowerCase().includes(lowerSearch)
+        );
+      }
+    let limitedProducts = maxValue
+      ? filteredProducts.slice(0, maxValue)
+      : filteredProducts;
+     
+    if (sortOrder === "asc") {
+      limitedProducts.sort((a, b) => a.price - b.price);
+    } else if (sortOrder === "desc") {
+      limitedProducts.sort((a, b) => b.price - a.price);
+    }
     limitedProducts.forEach((product) => {
       let productDiv = document.createElement("div");
       productDiv.className = "col";
@@ -35,7 +59,6 @@ export async function getProducts(maxValue, apiUrl) {
       let cartContainer = document.createElement("div");
       cartContainer.className = "cartToggle";
       cartBtn.addEventListener("click", (e) => {
-     
         showCartControls(cartContainer, cartBtn, product.id);
         addToCart(product.id, product.title, product.imageCover, product.price);
       });
@@ -49,7 +72,7 @@ export async function getProducts(maxValue, apiUrl) {
       cardBody.appendChild(cardContent);
       card.appendChild(cardBody);
       card.addEventListener("click", (event) => {
-        localStorage.setItem("selectedProductId", product.id); 
+        localStorage.setItem("selectedProductId", product.id);
         window.location.href = "product.html";
       });
     });
@@ -87,6 +110,7 @@ export function showCartControls(cartContainer, cartBtn, productId) {
       quantity.textContent = count;
       updateQuantity(productId, count);
     });
+
     cartContainer.appendChild(minusBtn);
     cartContainer.appendChild(quantity);
     cartContainer.appendChild(plusBtn);

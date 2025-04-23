@@ -13,10 +13,12 @@
       rel="stylesheet"
     />
     <link href="css/product.css" rel="stylesheet" />
+    <link href="css/style.css" rel="stylesheet">
   </head>
   <body
     class="container text-center text-md-start d-flex justify-content-between justify-items-center align-items-center vh-100"
   >
+  <button id="exitBtn" class="btn  rounded-circle shadow position-fixed top-0 end-0 m-3">X</button>
     <div
       class="d-flex flex-column gap-3 align-items-center slider-dots"
       id="slider-dots"
@@ -36,7 +38,7 @@
         <span class="rating"> </span>
       </p>
       <p id="reviews"><strong></strong></p>
-      <button class="btn btn-buy w-100">Add to Cart</button>
+      <button class="btn btn-buy w-100" id="addToCart">Add to Cart</button>
     </div>
 
     <script type="module">

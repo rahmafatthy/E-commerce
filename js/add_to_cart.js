@@ -1,4 +1,6 @@
 const user = JSON.parse(localStorage.getItem("user"));
+let exitButton=document.getElementById("exitBtn");
+
 
 export async function getCartItems() {
   const cartContainer = document.getElementById("cart-container");
@@ -158,6 +160,12 @@ export async function updateQuantity(productId, count) {
     console.error("Update quantity error:", error);
   }
 }
+window.onload = () => {
+  if (exitButton) {
+    exitButton.addEventListener("click", () => {
+      window.location.replace("index.html");
+    });
+  }}
 
 window.updateProductQuantity = async (productId, count) => {
   if (count < 1) {
@@ -175,3 +183,4 @@ window.removeProduct = async (productId) => {
 document.addEventListener("DOMContentLoaded", () => {
   getCartItems();
 });
+
