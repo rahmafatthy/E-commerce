@@ -1,0 +1,136 @@
+body {
+    background-color: #fff;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    font-size: 1rem;
+  }
+  
+  .product-img {
+    flex: 1 1 21.875rem; 
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: nowrap;
+    gap: 1rem;
+    padding: 1.25rem; 
+  }
+  
+  .slider-img {
+    width: 100%;
+    max-width: 21.875rem;
+    max-height: 20rem; 
+    object-fit: contain;
+    border-radius: 0.625rem; 
+  }
+  
+  .dot {
+    width: 0.75rem; 
+    height: 0.75rem;
+    background-color: #ccc;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin: 0.5rem 0; /* 8px top & bottom */
+  }
+  
+  .dot.active {
+    background-color: #9c7956;
+  }
+  
+  .slider-dots {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .product-details {
+    flex: 1 1 28.125rem; /* 450px */
+    padding: 1.875rem; /* 30px */
+    text-align: left;
+  }
+  
+  .product-details h1 {
+    font-size: 2rem;
+    margin-bottom: 1.25rem; /* 20px */
+  }
+  
+  .product-details p {
+    margin-bottom: 0.625rem; /* 10px */
+    font-size: 1.1rem;
+  }
+  
+  .product-details .price {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #9c7956;
+  }
+  
+  .rating {
+    color: #f8c01a;
+  }
+  
+  .btn-buy {
+    margin-top: 1.5625rem; /* 25px */
+    padding: 0.75rem 1.5625rem; /* 12px 25px */
+    font-size: 1.1rem;
+    border-radius: 0.5rem; /* 8px */
+    background-color: #9c7956;
+    color: white;
+    transition: background-color 0.3s ease;
+  }
+  
+  .btn-buy:hover {
+    color: #fff;
+    background-color: #582f0e;
+  }
+  
+  /* 📱 Responsive Layout Adjustments */
+  @media (max-width: 48rem) { 
+    html{
+        font-size: 13px;
+    }
+    .product-img {
+      flex-direction: column;
+      align-items: center;
+      gap: 0.625rem; /* 10px */
+    }
+  
+    .slider-img {
+      max-width: 100%;
+      max-height: 17.5rem; /* 280px */
+    }
+  
+    .slider-dots {
+      flex-direction: row;
+      justify-content: center;
+      margin-bottom: 0.625rem; /* 10px */
+    }
+  
+    .dot {
+      margin: 0 0.375rem; /* 6px horizontal */
+    }
+  
+    .product-details {
+      padding: 1.25rem; /* 20px */
+      text-align: center;
+    }
+  
+    .product-details h1 {
+      font-size: 1.6rem;
+    }
+  
+    .product-details p {
+      font-size: 1rem;
+    }
+  
+    .product-details .price {
+      font-size: 1.3rem;
+    }
+  
+    .btn-buy {
+      width: 100%;
+    }
+  }
+  

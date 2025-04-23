@@ -14,7 +14,7 @@
   </head>
   <body class="d-flex flex-column align-items-center text-center">
     <header
-      class="container d-sm-flex justify-content-between align-items-center text-center header"
+      class="container d-flex justify-content-between align-items-center text-center header"
     >
       <img id="logo" class="img-sm logo-img" src="images/RFE Store.png" />
 
@@ -22,7 +22,7 @@
         <a class="nav-link" href="#main">Home</a>
         <a class="nav-link" href="#about">About</a>
         <a class="nav-link" href="#footer">Contact</a>
-        <a class="nav-link" href="login.html">Login</a>
+        <a class="nav-link" id="login" href="login.html"></a>
       </nav>
       <form id="search" class="mt-2 d-flex align-items-center">
         <div class="input-group search-box">
@@ -37,7 +37,7 @@
         </div>
       </form>
 
-      <div id="icons" class="d-sm-flex justify-content-evenly">
+      <div id="icons" class="d-sm-flex justify-content-between">
         <a
           id="wish-list"
           href="wishlist.html"
@@ -55,7 +55,7 @@
           <div class="col-6 text-center text-md-start mb-4 mb-md-0">
             <h2 class="display-5 fw-bold mb-3">Unique Products for</h2>
             <p class="lead mb-4">Unique People</p>
-            <a class="btn btn-sm w-25 p-2">Shop</a>
+            <a class="btn btn-sm w-25 p-2" href="#main">Shop</a>
           </div>
           <div class="col-6 text-center">
             <img src="images/slide1.jpg" class="img-fluid rounded-4 shadow" />
@@ -117,7 +117,7 @@
       </div>
     </section>
     <section class="container mt-5 about" id="about">
-      <div class="about-cards d-flex justify-content-around align-items-center">
+      <div class="about-cards d-flex justify-content-around  gap-2 align-items-center">
         
         <div class="card text-center shadow border-0 p-2" style="width: 20rem; height: 20rem;">
           <div class="d-flex flex-column justify-content-center gap-4 align-items-center h-100">
@@ -176,10 +176,8 @@
         </div>
       </div>
     </footer>
-    
-
 
     <script src="bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="js/main.js"></script>
+    <script type="module" src="js/main.js" ></script>
   </body>
 </html>
