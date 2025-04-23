@@ -42,7 +42,7 @@ loginBtn.addEventListener("click", async (event) => {
       };
 
       localStorage.setItem("user", JSON.stringify(userData));
-      window.location.href = "index.html";
+      window.location.replace("index.html");
     } else {
       errorMsg.innerHTML = `<p class="text-danger">${data.message || "Login failed."}</p>`;
     }
