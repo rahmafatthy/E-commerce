@@ -198,8 +198,11 @@ footer{
     }
   }
 
+  .card-img-top {
+    height: 360px;
 
-@media (max-width: 576px) {
+  }
+@media (max-width: 600px) {
     html{
         font-size: 10px;
         overflow-x: hidden;
@@ -216,5 +219,16 @@ footer{
   .logo-img {
 
     max-width: 80px;
+  }
+  .card-img-top {
+    height: 100px;
+  }
+
+  .card-body h4 {
+    font-size: 1rem;
+  }
+
+  .card-body .card-text {
+    font-size: 0.85rem;
   }
 }

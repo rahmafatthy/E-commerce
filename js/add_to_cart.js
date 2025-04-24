@@ -1,6 +1,5 @@
 const user = JSON.parse(localStorage.getItem("user"));
-let exitButton=document.getElementById("exitBtn");
-
+let exitButton = document.getElementById("exitBtn");
 
 export async function getCartItems() {
   const cartContainer = document.getElementById("cart-container");
@@ -35,57 +34,86 @@ export async function getCartItems() {
       result.data.products.forEach((item) => {
         const product = item.product;
         const productDiv = document.createElement("div");
-        productDiv.className = "card mb-3";
+        productDiv.className = "card mb-1";
         productDiv.innerHTML = `
-          <div class="row g-0 align-items-center">
-            <div class="col-md-2">
-              <img src="${
-                product.imageCover
-              }" class="img-fluid rounded-start" alt="${product.title}">
-            </div>
-            <div class="col-7">
-              <div class="card-body">
-                <h5 class="card-title">${product.title}</h5>
-                <p class="card-text text-muted">${product.category.name}</p>
-                <p class="card-text"><small class="text-muted">Price: ${
-                  item.price
-                } EGP</small></p>
-              </div>
-            </div>
-            <div class="col-3 d-flex flex-column align-items-end justify-content-center pe-3">
-              <div class="d-flex align-items-center mb-2">
-                <button  class="btn btn-sm btn-outline-secondary" onclick="updateProductQuantity('${
-                  product._id
-                }', ${item.count - 1})">−</button>
-                <span class="mx-2">${item.count}</span>
-                <button class="btn btn-sm btn-outline-secondary" onclick="updateProductQuantity('${
-                  product._id
-                }', ${item.count + 1})">+</button>
-              </div>
-              <button class="btn btn-sm btn-danger" style="  background-color: #9c7956;" onclick="removeProduct('${
-                product._id
-              }')">Remove</button>
+        <div class="row g-0 align-items-center">
+          <div class="col-3">
+            <img src="${
+              product.imageCover
+            }" class="img-fluid rounded-start product-img" alt="${
+          product.title
+        }">
+          </div>
+          <div class="col-6">
+            <div class="card-body">
+              <h5 class="card-title">${product.title}</h5>
+              <p class="card-text text-muted">${product.category.name}</p>
+              <p class="card-text"><small class="text-muted">Price: ${
+                item.price
+              } EGP</small></p>
             </div>
           </div>
-        `;
+          <div class="col-3 d-flex flex-column align-items-end justify-content-center pe-3">
+            <div class="d-flex align-items-center mb-2">
+              <button class="btn btn-sm btn-outline-secondary minus " onclick="updateProductQuantity('${
+                product._id
+              }', ${item.count - 1})">−</button>
+              <span class="mx-2">${item.count}</span>
+              <button class="btn btn-sm btn-outline-secondary add" onclick="updateProductQuantity('${
+                product._id
+              }', ${item.count + 1})">+</button>
+            </div>
+            <button class="btn btn-sm"  onclick="removeProduct('${
+              product._id
+            }')">
+            <i class="bi bi-archive-fill" style="color:#9c7956"></i>
+          </button>
+
+          </div>
+        </div>
+      `;
+
         cartContainer.appendChild(productDiv);
       });
 
       orderSummary.innerHTML = `
-        <div class="mt-6">
-          <h5 style="color:#9c7956;">Order Summary</h5>
-          <p>Total Price: <strong>${result.data.totalCartPrice} EGP</strong></p>
+      <div class="mt-4 p-3 border rounded">
+        <h5 class="mb-3" style="color:#9c7956;">Order Summary</h5>
+        <div class="d-flex justify-content-between align-items-center">
+          <p class="mb-0 fs-6 text-dark">Total: <strong class="fs-6">${result.data.totalCartPrice} EGP</strong></p>
+          <button id="checkOut" class="btn btn-sm px-5 py-2" style="background-color: #9c7956; color: white;">Checkout</button>
         </div>
-      `;
+      </div>
+    `;
+    document.getElementById("checkOut").addEventListener("click", async () => {
+      alert("Your Order In Shaping Process");
+      try {
+        const response = await fetch("https://ecommerce.routemisr.com/api/v1/cart", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            token: user.token,
+          },
+        });
+        const result = await response.json();
+        if (response.ok) {
+          console.log("Product added:", result);
+        } else {
+          console.warn("Failed to add product:", result.message);
+        }
+      } catch (error) {
+        console.error("Add to cart error:", error);
+      }
+      window.location.replace("index.html");
+    });
     } else {
       cartContainer.innerHTML = `<p class="text-danger">Error: ${result.message}</p>`;
     }
   } catch (error) {
-    console.error("Error getting cart items:", error);
-    cartContainer.innerHTML = `<p class="text-danger">Something went wrong. Please try again.</p>`;
+    //console.error("Add to cart error:", error);
+    // alert("Failed to add item to cart. Please check the network or try again later.");
   }
 }
-
 // add item to cart
 export async function addToCart(productId) {
   try {
@@ -146,7 +174,7 @@ export async function updateQuantity(productId, count) {
           "Content-Type": "application/json",
           token: user.token,
         },
-        body: JSON.stringify({ count }), 
+        body: JSON.stringify({ count }),
       }
     );
 
@@ -165,7 +193,8 @@ window.onload = () => {
     exitButton.addEventListener("click", () => {
       window.location.replace("index.html");
     });
-  }}
+  }
+};
 
 window.updateProductQuantity = async (productId, count) => {
   if (count < 1) {
@@ -183,4 +212,3 @@ window.removeProduct = async (productId) => {
 document.addEventListener("DOMContentLoaded", () => {
   getCartItems();
 });
-

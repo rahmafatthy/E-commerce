@@ -6,7 +6,8 @@ export async function getProducts(
   maxValue,
   categoryId,
   sortOrder,
-  searchTerm = ""
+  searchTerm = "",
+
 ) {
   try {
     let response = await fetch(
@@ -34,11 +35,12 @@ export async function getProducts(
     }
     limitedProducts.forEach((product) => {
       let productDiv = document.createElement("div");
-      productDiv.className = "col";
+      productDiv.className = "col-sm-6 col-md-4 col-lg-3 mb-4";
+
       let card = document.createElement("div");
       card.className = "card h-100 text-start shadow border-0";
       let productImg = document.createElement("img");
-      productImg.className = "card-img-top object-fit-cover";
+      productImg.className = "card-img-top object-fit-contain";
       productImg.src = product.imageCover;
       let cardBody = document.createElement("div");
       cardBody.className = "card-body";
@@ -62,16 +64,38 @@ export async function getProducts(
         showCartControls(cartContainer, cartBtn, product.id);
         addToCart(product.id, product.title, product.imageCover, product.price);
       });
+      let favBtn=document.createElement("button");
+      favBtn.className =
+      "btn p-0 m-0  fs-6 border-0 d-flex align-items-center  small";
+      favBtn.innerHTML=`<i class="bi bi-heart" style="color:#9c7956;"></i>`;
       ProductGrid.appendChild(productDiv);
       productDiv.appendChild(card);
       card.appendChild(productImg);
       cardContent.appendChild(price);
       cartContainer.appendChild(cartBtn);
+      cardContent.appendChild(favBtn);
       cardContent.appendChild(cartContainer);
       cardBody.appendChild(title);
       cardBody.appendChild(cardContent);
       card.appendChild(cardBody);
-      card.addEventListener("click", (event) => {
+      const favorites = JSON.parse(localStorage.getItem("favoriteProducts")) || [];
+      const isFavorite = favorites.includes(product.id);
+      favBtn.innerHTML = `<i class="bi bi-heart${isFavorite ? '-fill' : ''}" style="color:#9c7956;"></i>`;
+      favBtn.addEventListener("click", () => {
+        const favorites = JSON.parse(localStorage.getItem("favoriteProducts")) || [];
+        
+        if (!favorites.includes(product.id)) {
+          favorites.push(product.id);
+          localStorage.setItem("favoriteProducts", JSON.stringify(favorites));
+          favBtn.innerHTML = `<i class="bi bi-heart-fill" style="color:#9c7956;"></i>`;
+        } else {
+          const updatedFavorites = favorites.filter(id => id !== product.id);
+          localStorage.setItem("favoriteProducts", JSON.stringify(updatedFavorites));
+          favBtn.innerHTML = `<i class="bi bi-heart" style="color:#9c7956;"></i>`;
+        }
+      });
+
+      productImg.addEventListener("click", () => {
         localStorage.setItem("selectedProductId", product.id);
         window.location.href = "product.html";
       });

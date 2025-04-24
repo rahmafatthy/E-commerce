@@ -74,3 +74,21 @@ display: none;
 #searchInput::placeholder{
   color:#9c7956;
 }
+@media (max-width: 600px) {
+  html{
+      font-size: 10px;
+      overflow-x: hidden;
+  }
+
+.card-img-top {
+  height: 150px;
+}
+
+.card-body h4 {
+  font-size: 1rem;
+}
+
+.card-body .card-text {
+  font-size: 0.85rem;
+}
+}
