@@ -207,6 +207,9 @@ footer{
         font-size: 10px;
         overflow-x: hidden;
     }
+    .nav{
+      visibility: hidden;
+    }
     #hero .slides {
       min-height: auto;
       padding: 1rem;

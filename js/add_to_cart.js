@@ -89,7 +89,7 @@ export async function getCartItems() {
       alert("Your Order In Shaping Process");
       try {
         const response = await fetch("https://ecommerce.routemisr.com/api/v1/cart", {
-          method: "POST",
+          method: "DELETE",
           headers: {
             "Content-Type": "application/json",
             token: user.token,

@@ -104,9 +104,9 @@ export async function getProducts(
     console.log(error);
   }
 }
-
 export function showCartControls(cartContainer, cartBtn, productId) {
   if (user && user.token) {
+    // User is logged in: allow adding/removing products from the cart
     cartContainer.innerHTML = "";
     const minusBtn = document.createElement("button");
     minusBtn.className = "btn btn-sm btn-outline-secondary cartBtn";
@@ -119,6 +119,7 @@ export function showCartControls(cartContainer, cartBtn, productId) {
     const plusBtn = document.createElement("button");
     plusBtn.className = "btn btn-sm btn-outline-secondary cartBtn";
     plusBtn.textContent = "+";
+    
     minusBtn.addEventListener("click", () => {
       if (count > 1) {
         count--;
@@ -129,6 +130,7 @@ export function showCartControls(cartContainer, cartBtn, productId) {
         cartContainer.append(cartBtn);
       }
     });
+
     plusBtn.addEventListener("click", () => {
       count++;
       quantity.textContent = count;
@@ -139,6 +141,9 @@ export function showCartControls(cartContainer, cartBtn, productId) {
     cartContainer.appendChild(quantity);
     cartContainer.appendChild(plusBtn);
   } else {
-    window.location.href = "login.html";
+    // User is not logged in: only show login redirect if they try to add to cart
+    cartBtn.addEventListener("click", () => {
+      window.location.href = "login.html";
+    });
   }
 }
