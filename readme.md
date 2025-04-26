@@ -50,5 +50,7 @@ It provides users with a complete shopping experience, including browsing produc
 ## Very Important Note
 -- **Missing categories Products on filtration because of API**
 -- **only work with Women's fashion , Mens fashion and Electronics** 
+
+---
 ## 📂 Project Structure
 
