@@ -15,18 +15,26 @@ It provides users with a complete shopping experience, including browsing produc
   - Filter by **Category**
   - Filter by **Brand**
   - Filter by **Price Range**
+  
+- **Search Functionality** (**⚠️ Important Note** i forget to add it in demo video sorry but it's work )
+  - **Search by Product Title** or **Description** 
+
 - **Authentication System**
   - **User Registration**
   - **Login/Logout**
   - **Password Reset** (Forgot Password)
+
 - **Shopping Cart**
   - Add, update, and remove items
   - View cart summary
   - Checkout
+
 - **Favorites List**
   - Add/remove products from favorites
+
 - **API Integration**
   - All data dynamically fetched and updated via APIs
+
 - **Responsive Design**
   - Fully mobile-friendly using **Bootstrap**
 
@@ -56,7 +64,7 @@ It provides users with a complete shopping experience, including browsing produc
 ---
 
 ## 🌐 Live Demo
-- **https://rfe-store-rahmas-projects-ce52aef0.vercel.app/**
 
+- [**Visit RFE Store on Vercel**](https://rfe-store-rahmas-projects-ce52aef0.vercel.app/)
 
 
