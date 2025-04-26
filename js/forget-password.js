@@ -3,36 +3,28 @@ let btn = document.getElementById("verify-btn");
 let errorMsg = document.getElementById("error-msg");
 let emailInput = document.getElementById("email");
 let codeInput = document.getElementById("code");
-
-// Create password inputs (hidden initially)
 let passwordInput = document.createElement("input");
 passwordInput.type = "password";
 passwordInput.className = "form-control mb-3 hidden";
 passwordInput.placeholder = "New Password";
 passwordInput.id = "new-password";
-
 let confirmPasswordInput = document.createElement("input");
 confirmPasswordInput.type = "password";
 confirmPasswordInput.className = "form-control mb-3 hidden";
 confirmPasswordInput.placeholder = "Confirm New Password";
 confirmPasswordInput.id = "confirm-password";
-
 let form = document.getElementById("verify-form");
 form.insertBefore(passwordInput, btn);
 form.insertBefore(confirmPasswordInput, btn);
-
 btn.addEventListener("click", handleSendCode);
-
 async function handleSendCode(e) {
   e.preventDefault();
   let email = emailInput.value.trim();
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
   if (!emailRegex.test(email)) {
     showError("Invalid Email");
     return;
   }
-
   try {
     let response = await fetch(`${baseUrl}/api/v1/auth/forgotPasswords`, {
       method: "POST",
@@ -45,18 +37,15 @@ async function handleSendCode(e) {
     if (response.ok) {
       showSuccess("Code sent to your email.");
 
-      // Animate email fade out
       emailInput.classList.add("fade-out");
       setTimeout(() => {
         emailInput.classList.add("hidden");
         emailInput.classList.remove("fade-out");
 
-        // Show code input with fade-in
         codeInput.classList.remove("hidden");
         codeInput.classList.add("fade-in");
-      }, 500); // Wait for fade-out to finish
+      }, 500);
 
-      // Update button
       btn.innerText = "Verify Code";
       btn.removeEventListener("click", handleSendCode);
       btn.addEventListener("click", handleVerifyCode);
@@ -90,7 +79,6 @@ async function handleVerifyCode(e) {
     if (response.ok) {
       showSuccess("Code verified! Enter new password.");
 
-      // Animate code input fade out
       codeInput.classList.add("fade-out");
       setTimeout(() => {
         codeInput.classList.add("hidden");
@@ -104,7 +92,6 @@ async function handleVerifyCode(e) {
         confirmPasswordInput.classList.add("fade-in");
       }, 500);
 
-      // Update button
       btn.innerText = "Reset Password";
       btn.removeEventListener("click", handleVerifyCode);
       btn.addEventListener("click", handleResetPassword);
@@ -139,7 +126,7 @@ async function handleResetPassword(e) {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         email,
-        newPassword
+        newPassword,
       }),
     });
 
@@ -158,8 +145,6 @@ async function handleResetPassword(e) {
     showError("Something went wrong.");
   }
 }
-
-// Helpers
 function showError(message) {
   errorMsg.innerText = message;
   errorMsg.classList.remove("text-success");

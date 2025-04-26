@@ -8,7 +8,7 @@ color:#9c7956;
     min-height: 85vh;
   }
 
-  /* Animation classes */
+
   .fade-out {
     opacity: 0;
     transition: opacity 0.5s ease;
