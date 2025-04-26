@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="images/RFE Store.png" alt="RFE Store Logo" width="150"/>
+  <img src="images/RFE%20Store.png" alt="RFE Store Logo" width="150"/>
 </p>
 
 # RFE Store 🛍️
@@ -47,10 +47,13 @@ It provides users with a complete shopping experience, including browsing produc
 - **RESTful API**
 
 ---
-## Very Important Note
--- **Missing categories Products on filtration because of API**
--- **only work with Women's fashion , Mens fashion and Electronics** 
+
+## ⚠️ Important Note
+
+- Some categories are missing products due to API limitations.
+- **Working categories:** Women's Fashion, Men's Fashion, and Electronics.
 
 ---
-## 📂 Project Structure
+
+
 
