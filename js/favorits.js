@@ -1,4 +1,10 @@
 let exitButton = document.getElementById("exitBtn");
+const user = JSON.parse(localStorage.getItem("user"));
+
+// Check if the user is valid (i.e., if user is logged in and has a token)
+if (!user || !user.token) {
+  window.location.href = "login.html";  // Redirect to login if no valid user
+}
 
 async function productInfo(productId) {
   try {
@@ -18,6 +24,7 @@ window.onload = () => {
     });
   }
 };
+
 document.addEventListener('DOMContentLoaded', async () => {
   const favoriteGrid = document.getElementById('favoriteGrid');
   const favoriteProducts = JSON.parse(localStorage.getItem('favoriteProducts')) || [];

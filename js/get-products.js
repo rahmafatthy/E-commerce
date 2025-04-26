@@ -7,12 +7,23 @@ export async function getProducts(
   categoryId,
   sortOrder,
   searchTerm = "",
+  brand,
+  maxPriceValue
 
 ) {
+  const loader = document.getElementById('loader');
+
+
+  loader.style.display = 'block';
+
   try {
     let response = await fetch(
       `https://ecommerce.routemisr.com/api/v1/products`
     );
+    if(response.ok){
+      ProductGrid.style.display='';
+
+    }
     let data = await response.json();
     let filteredProducts = categoryId
       ? data.data.filter((product) => product.category._id === categoryId)
@@ -32,6 +43,15 @@ export async function getProducts(
       limitedProducts.sort((a, b) => a.price - b.price);
     } else if (sortOrder === "desc") {
       limitedProducts.sort((a, b) => b.price - a.price);
+    }
+    if(brand){
+      limitedProducts= limitedProducts.filter((product)=>product.brand.name===brand);
+
+    }
+    if(maxPriceValue){
+      limitedProducts = limitedProducts.filter((product) => {
+        return product.price && product.price <= maxPriceValue;
+      });
     }
     limitedProducts.forEach((product) => {
       let productDiv = document.createElement("div");
@@ -82,16 +102,20 @@ export async function getProducts(
       const isFavorite = favorites.includes(product.id);
       favBtn.innerHTML = `<i class="bi bi-heart${isFavorite ? '-fill' : ''}" style="color:#9c7956;"></i>`;
       favBtn.addEventListener("click", () => {
-        const favorites = JSON.parse(localStorage.getItem("favoriteProducts")) || [];
-        
-        if (!favorites.includes(product.id)) {
-          favorites.push(product.id);
-          localStorage.setItem("favoriteProducts", JSON.stringify(favorites));
-          favBtn.innerHTML = `<i class="bi bi-heart-fill" style="color:#9c7956;"></i>`;
+        if (!user || !user.token) {
+          window.location.href = "login.html";
         } else {
-          const updatedFavorites = favorites.filter(id => id !== product.id);
-          localStorage.setItem("favoriteProducts", JSON.stringify(updatedFavorites));
-          favBtn.innerHTML = `<i class="bi bi-heart" style="color:#9c7956;"></i>`;
+
+          const favorites = JSON.parse(localStorage.getItem("favoriteProducts")) || [];
+          if (!favorites.includes(product.id)) {
+            favorites.push(product.id);
+            localStorage.setItem("favoriteProducts", JSON.stringify(favorites));
+            favBtn.innerHTML = `<i class="bi bi-heart-fill" style="color:#9c7956;"></i>`;
+          } else {
+            const updatedFavorites = favorites.filter(id => id !== product.id);
+            localStorage.setItem("favoriteProducts", JSON.stringify(updatedFavorites));
+            favBtn.innerHTML = `<i class="bi bi-heart" style="color:#9c7956;"></i>`;
+          }
         }
       });
 
@@ -102,11 +126,13 @@ export async function getProducts(
     });
   } catch (error) {
     console.log(error);
+  }finally {
+    loader.style.display = 'none'; 
   }
 }
 export function showCartControls(cartContainer, cartBtn, productId) {
   if (user && user.token) {
-    // User is logged in: allow adding/removing products from the cart
+
     cartContainer.innerHTML = "";
     const minusBtn = document.createElement("button");
     minusBtn.className = "btn btn-sm btn-outline-secondary cartBtn";
@@ -141,9 +167,9 @@ export function showCartControls(cartContainer, cartBtn, productId) {
     cartContainer.appendChild(quantity);
     cartContainer.appendChild(plusBtn);
   } else {
-    // User is not logged in: only show login redirect if they try to add to cart
     cartBtn.addEventListener("click", () => {
       window.location.href = "login.html";
     });
   }
 }
+

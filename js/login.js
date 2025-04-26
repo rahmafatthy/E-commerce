@@ -1,6 +1,14 @@
 let loginBtn = document.getElementById("login-btn");
 let baseUrl = "https://ecommerce.routemisr.com";
 let errorMsg = document.getElementById("error-msg");
+let exitButton = document.getElementById("exitBtn");
+window.onload = () => {
+  if (exitButton) {
+    exitButton.addEventListener("click", () => {
+      window.location.replace("index.html");
+    });
+  }
+};
 
 loginBtn.addEventListener("click", async (event) => {
   event.preventDefault();

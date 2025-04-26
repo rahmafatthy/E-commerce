@@ -1,16 +1,14 @@
 const user = JSON.parse(localStorage.getItem("user"));
 let exitButton = document.getElementById("exitBtn");
-
 export async function getCartItems() {
   const cartContainer = document.getElementById("cart-container");
   const orderSummary = document.getElementById("orderSummary");
-
-  if (!user || !user.token) {
-    window.location.href = "login.html";
-    return;
-  }
-
   try {
+    const loader = document.getElementById('loader');
+
+
+    loader.style.display = 'block';
+  
     const response = await fetch(
       "https://ecommerce.routemisr.com/api/v1/cart",
       {
@@ -22,10 +20,12 @@ export async function getCartItems() {
 
     const result = await response.json();
     console.log(result);
+
     if (response.ok) {
       cartContainer.innerHTML = " ";
       orderSummary.innerHTML = " ";
-
+      cartContainer.style.display='';
+      orderSummary.style.display='';
       if (!result.data.products.length) {
         cartContainer.innerHTML = `<p>Your cart is empty.</p>`;
         return;
@@ -85,8 +85,9 @@ export async function getCartItems() {
         </div>
       </div>
     `;
+
     document.getElementById("checkOut").addEventListener("click", async () => {
-      alert("Your Order In Shaping Process");
+      alert("Your Order Is In The Shaping Process");
       try {
         const response = await fetch("https://ecommerce.routemisr.com/api/v1/cart", {
           method: "DELETE",
@@ -110,12 +111,34 @@ export async function getCartItems() {
       cartContainer.innerHTML = `<p class="text-danger">Error: ${result.message}</p>`;
     }
   } catch (error) {
-    //console.error("Add to cart error:", error);
-    // alert("Failed to add item to cart. Please check the network or try again later.");
+   // console.error("Add to cart error:", error);
+  }finally {
+    loader.style.display = 'none'; 
   }
 }
+function isUserLoggedIn() {
+  const user = JSON.parse(localStorage.getItem("user"));
+  return user && user.token;
+}
+
+window.addEventListener("DOMContentLoaded", () => {
+  if (isUserLoggedIn()) {
+    getCartItems();
+  }
+  else{
+    let container=document.createElement("div");
+    container.innerHTML="Login to Add to cart";
+  }
+});
+
 // add item to cart
 export async function addToCart(productId) {
+  if (!user || !user.token) {
+    console.error("User not logged in");
+    window.location.href = "login.html";
+    return;
+  }
+
   try {
     const response = await fetch(
       "https://ecommerce.routemisr.com/api/v1/cart",
@@ -142,6 +165,12 @@ export async function addToCart(productId) {
 
 // remove item from cart
 export async function removeFromCart(productId) {
+  if (!user || !user.token) {
+    console.error("User not logged in");
+    window.location.href = "login.html"; 
+        return;
+  }
+
   try {
     const response = await fetch(
       `https://ecommerce.routemisr.com/api/v1/cart/${productId}`,
@@ -165,6 +194,12 @@ export async function removeFromCart(productId) {
 }
 
 export async function updateQuantity(productId, count) {
+  if (!user || !user.token) {
+    console.error("User not logged in");
+    window.location.href = "login.html"; 
+    return;
+  }
+
   try {
     const response = await fetch(
       `https://ecommerce.routemisr.com/api/v1/cart/${productId}`,
@@ -188,6 +223,7 @@ export async function updateQuantity(productId, count) {
     console.error("Update quantity error:", error);
   }
 }
+
 window.onload = () => {
   if (exitButton) {
     exitButton.addEventListener("click", () => {
@@ -209,6 +245,3 @@ window.removeProduct = async (productId) => {
   await removeFromCart(productId);
   getCartItems();
 };
-document.addEventListener("DOMContentLoaded", () => {
-  getCartItems();
-});

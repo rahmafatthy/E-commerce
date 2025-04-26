@@ -11,8 +11,10 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 
     <link href="css/cart.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/loader.css" />
   </head>
   <body class="d-flex flex-column align-items-center text-start">
+    
     <button
       id="exitBtn"
       class="btn rounded-circle shadow position-fixed top-0 end-0 m-3"
@@ -21,9 +23,12 @@
     </button>
     <div class="container py-5">
       <h2 class="mb-4" style="color: #9c7956">Shopping Cart</h2>
-      <div id="cart-container"></div>
-      <div id="orderSummary"></div>
+      <div id="loader" class="loader" style="display: none"></div>
+      <div id="cart-container"  style="display: none"></div>
+      <div id="orderSummary"  style="display: none"></div>
     </div>
-    <script type="module" src="js/add_to_cart.js"></script>
+    <script type="module" src="js/add_to_cart.js">
+
+    </script>
   </body>
 </html>

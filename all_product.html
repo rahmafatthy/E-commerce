@@ -7,58 +7,90 @@
   <link rel="stylesheet" href="bootstrap/css/bootstrap.css" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
   <link rel="stylesheet" href="css/all_product.css" />
- 
+  <link rel="stylesheet" href="css/loader.css" />
 </head>
-<body class="d-flex flex-column align-items-center text-center py-1 mt-3 ">
 
-  <div class="container">
-    <div class="scroll-div d-flex align-items-center position-relative gap-1">
+<body class="d-flex flex-column align-items-center text-center py-1 mt-3">
+  <div id="loader" class="loader" style="display: none"></div>
+  <div class="container" id="totalPage" style="display: none;">
+
+    <!-- Scrollable categories -->
+    <div class="scroll-div d-flex align-items-center position-relative gap-1 mb-3">
       <button class="scroll-btn rounded-circle" id="leftBtn">
         <i class="bi bi-chevron-left"></i>
       </button>
 
-      <div id="categories-container" class="categories-container d-flex flex-nowrap overflow-auto gap-1 px-1 py-1">
-      </div>
+      <div id="categories-container" class="categories-container d-flex flex-nowrap overflow-auto gap-1 px-1 py-1"></div>
 
       <button class="scroll-btn rounded-circle" id="rightBtn">
         <i class="bi bi-chevron-right"></i>
       </button>
     </div>
-    <div class="container">
-        <div class="row mb-3">
-          <div class="col-12">
-            <div class="d-flex justify-content-between align-items-center">
-              <div class="input-group w-50">
-                <input type="text" class="form-control" placeholder="Search for products..." id="searchInput">
-                <button class="btn searchButton" type="button" id="searchButton">
-                  <i class="bi bi-search"></i>
-                </button>
-              </div>
-              <div class="dropdown">
 
-                <ul class="dropdown-menu" id="categoryList">
-                </ul>
-              </div>
-              <div class="dropdown">
-                <button class="btn btn-outline dropdown-toggle" type="button" id="sortDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                  Sort By
-                </button>
-                <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="#" id="sortPriceLowToHigh">Price: Low to High</a></li>
-                  <li><a class="dropdown-item" href="#" id="sortPriceHighToLow">Price: High to Low</a></li>
-                </ul>
-              </div>
+    <!-- Search Row -->
+    <div class="col-8 col-md-5 mb-2 justify-content-start">
+      <div class="col-auto">
+        <div class="input-group">
+          <input type="text" class="form-control" placeholder="Search for products" id="searchInput">
+          <button class="btn searchButton" type="button" id="searchButton">
+            <i class="bi bi-search"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Filter title -->
+    <div class="row mb-2">
+      <div class="col-12 text-start">
+        <h6>Filter By</h6>
+      </div>
+    </div>
+
+    <!-- Filters Row -->
+    <div class="row mb-4">
+      <div class="col-12">
+        <div class="row g-2">
+
+          <!-- Sort by Brand -->
+          <div class="col-8 col-md-2">
+            <div class="dropdown w-100">
+              <button class="btn btn-outline w-100 dropdown-toggle" type="button" id="sortByBrand" data-bs-toggle="dropdown" aria-expanded="false">
+                Brand
+              </button>
+              <ul class="dropdown-menu" id="brand-list"></ul>
             </div>
           </div>
+
+          <!-- Sort by Price -->
+          <div class="col-8 col-md-2">
+            <div class="dropdown w-100">
+              <button class="btn btn-outline w-100 dropdown-toggle" type="button" id="sortDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                Sort By Price
+              </button>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#" id="sortPriceLowToHigh">Low to High</a></li>
+                <li><a class="dropdown-item" href="#" id="sortPriceHighToLow">High to Low</a></li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Price Slider -->
+          <div class="col-8 col-md-2 d-flex align-items-center">
+            <input type="range" class="form-range flex-grow-1" min="100" max="50000" step="100" id="priceSlider">
+            <label for="priceSlider" class="form-label ms-2 mb-0">
+              <span id="priceValue">0 EGP</span> 
+            </label>
+          </div>
+
         </div>
-    
-    <div class="container products mt-2">
-        <div
-          class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-5 g-4 Product-grid"
-          id="Product-grid"
-        ></div>
-       
       </div>
+    </div>
+
+    <!-- Products Grid -->
+    <div class="container products mt-2">
+      <div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-5 g-4 Product-grid" id="Product-grid"></div>
+    </div>
+
   </div>
 
   <script src="bootstrap/js/bootstrap.bundle.min.js"></script>
