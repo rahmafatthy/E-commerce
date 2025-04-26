@@ -15,12 +15,14 @@ confirmPasswordInput.placeholder = "Confirm New Password";
 confirmPasswordInput.id = "confirm-password";
 let form = document.getElementById("verify-form");
 form.insertBefore(passwordInput, btn);
+const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
 form.insertBefore(confirmPasswordInput, btn);
 btn.addEventListener("click", handleSendCode);
 async function handleSendCode(e) {
   e.preventDefault();
   let email = emailInput.value.trim();
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+ 
   if (!emailRegex.test(email)) {
     showError("Invalid Email");
     return;
@@ -83,8 +85,6 @@ async function handleVerifyCode(e) {
       setTimeout(() => {
         codeInput.classList.add("hidden");
         codeInput.classList.remove("fade-out");
-
-        // Show password fields with fade-in
         passwordInput.classList.remove("hidden");
         passwordInput.classList.add("fade-in");
 
@@ -108,10 +108,10 @@ async function handleResetPassword(e) {
   e.preventDefault();
   let newPassword = passwordInput.value.trim();
   let confirmPassword = confirmPasswordInput.value.trim();
-  let email = emailInput.value.trim(); // still the same email
+  let email = emailInput.value.trim();
 
-  if (newPassword.length < 6) {
-    showError("Password must be at least 6 characters.");
+  if (!passwordRegex.test(newPassword)) {
+    showError("Invalid Password");;
     return;
   }
 
