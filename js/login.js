@@ -47,6 +47,7 @@ loginBtn.addEventListener("click", async (event) => {
     if (response.ok) {
       const userData = {
         token: data.token,
+        name: data.user.name,
       };
 
       localStorage.setItem("user", JSON.stringify(userData));

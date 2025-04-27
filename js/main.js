@@ -3,9 +3,13 @@ const seeMore = document.getElementById("seeMore");
 const cart=document.getElementById("cart-list");
 const loginBtnInHomeScreen = document.getElementById("login-btn-in-home");
 const user = JSON.parse(localStorage.getItem("user"));
-
+const userNameElement = document.getElementById("user-name");
 if (loginBtnInHomeScreen) {
   if (user && user.token) {
+    loginBtnInHomeScreen.innerText = "Logout";
+    userNameElement.innerText =user.name.toUpperCase(); 
+    userNameElement.style.display = 'inline-block';
+    userNameElement.style.color = '#9c7956';
     loginBtnInHomeScreen.innerText = "Logout";
     loginBtnInHomeScreen.addEventListener("click", () => {
       localStorage.removeItem('favoriteProducts'); 
@@ -13,6 +17,7 @@ if (loginBtnInHomeScreen) {
       window.location.reload(); 
     });
   } else {
+    userNameElement.style.display = 'none';
     loginBtnInHomeScreen.innerText = "Login";
     loginBtnInHomeScreen.addEventListener("click", () => {
       window.location.href = "login.html"; 
